@@ -13,7 +13,7 @@
 - 支持Kafka Server间的消息分区，及分布式消费，同时保证每个partition内的消息顺序传输。 
 - 同时支持离线数据处理和实时数据处理。 支持在线水平扩展。
 
-![image-20211109174514811](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211109174514811.png)
+![图片](https://user-images.githubusercontent.com/53028208/142020976-1d2286bb-3f71-4866-b775-f14ad396d84b.png)
 
 有两种主要的消息传递模式：**点对点传递模式、发布-订阅模式**。大部分的消息系统选用发布-订阅 模式。**Kafka就是一种发布-订阅模式**。 对于消息中间件，消息分推拉两种模式。
 
@@ -90,8 +90,7 @@
 **主题和分区**
 
 ​        Kafka的消息通过主题进行分类。主题可比是数据库的表或者文件系统里的文件夹。主题可以被分为若干分区，一个主题通过分区分布于Kafka集群中，提供了横向扩展的能力。 
-
-![image-20211116222855730](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116222855730.png) 
+![图片](https://user-images.githubusercontent.com/53028208/142021075-cb2d4b1c-35d4-4bf0-880f-ed381e7e23dd.png)
 
 
 
@@ -120,7 +119,7 @@
 
    ​           集群中一个分区属于一个broker，该broker称为分区首领。**一个分区**可以分配给**多个broker**，此时会发生分区复制。分区的复制提供了**消息冗余，高可用**。**副本分区不负责处理消息的读写。**  
 
-![image-20211116223329089](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116223329089.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021115-656e8836-c14b-4e65-953e-b0e1e668f7d3.png)
 
 
 
@@ -146,7 +145,7 @@
 3. 消费者是消费组的一部分。群组保证**每个分区同时**只能被一个消费者使用。
 4. 如果一个消费者失效，消费组里的其他消费者可以接管失效消费者的工作，**再平衡**，分区**重新分配**。
 
-![image-20211116234011693](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116234011693.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021149-10786bad-8bcb-4548-9bd3-34c4125c7422.png)
 
 
 
@@ -166,8 +165,7 @@
 
   ​      **broker** 是集群的组成部分。每个集群都有一个broker 同时充当了**集群控制器**的角色（自动从集群的**活跃成员**中选举出来）。
   控制器负责**管理工作**，包括将**分区分配给broker** 和**监控broker**。在集群中，一个分区从属于一个broker，该broker 被称为分区的首领。  
-
-![image-20211116234410985](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116234410985.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021189-f9a400f6-2b7a-4c36-884f-e8c330f0d896.png)
 
 ### 1.1.5.4 Topic
 
@@ -189,7 +187,7 @@
 
 - 在需要严格保证消息的消费顺序的场景下，需要将partition数目设为1。
 
-  ![image-20211116234726033](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116234726033.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021230-b5e0d3f1-8222-45dd-8387-f4db40e75d9c.png)
 
 ### 1.1.5.6 Replicas
 
@@ -211,13 +209,13 @@
 
 ​     消息写入的时候，每一个分区都有一个offset，这个offset就是生产者的offset，同时也是这个分区的最新最大的offset。有些时候没有指定某一个分区的offset，这个工作kafka帮我们完成。  
 
-![image-20211116235226688](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116235226688.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021268-3d1fd1bd-f753-49f6-86f5-6ac214c88cd1.png)
 
 **消费者Offset**  
 
 ​       这是某一个分区的offset情况，生产者写入的offset是最新最大的值是12，而当Consumer A进行消费时，从0开始消费，一直消费到了9，消费者的offset就记录在9，Consumer B就纪录在了11。等下一次他们再来消费时，他们可以选择接着上一次的位置消费，当然也可以选择从头消费，或者跳到最近的记录并从“现在”开始消费。  
 
-![image-20211116235352927](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116235352927.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021291-94810c02-3e05-41ec-83f3-772b09f2b47e.png)
 
 ### 1.1.5.8 副本
 
@@ -242,5 +240,4 @@
 #### 1.1.5.8.5 LEO
 
 LEO是Log End Offset的缩写，它表示了当前日志文件中**下一条待写入**消息的offset。  
-
-![image-20211116235833732](C:\Users\Kevin Liang\AppData\Roaming\Typora\typora-user-images\image-20211116235833732.png)
+![图片](https://user-images.githubusercontent.com/53028208/142021337-8942dd90-81b8-47b3-992a-3e303d3b528d.png)
